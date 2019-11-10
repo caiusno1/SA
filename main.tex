@@ -1,0 +1,74 @@
+\documentclass[]{article}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{todonotes}
+\usepackage{rotating}
+\usepackage{tabularx}
+% \usepackage{algorithm2e} % [ruled,linesnumbered]
+%opening
+\title{SA Exercise 3}
+\author{Kai Biermeier (7028629), Hassen Smaoui (6782765), \\ Daniel Wecker (7005021)}
+
+\begin{document}
+	
+	\maketitle
+	\section*{Exercise 1}
+	a)\\
+	Equation System:\\
+	(i,r,x)\\
+	$CP_1$=$\iota$=($\top$, $\top$, $\top$)\\
+	$CP_2$=$\phi$($CP_1$)=($\top$, $\top$, 0 )\\
+	$CP_3$=$\phi$($CP_2$)=($\top$, 0, 0 )\\
+	$CP_4$=$\phi$($CP_3$)=(6, 0, 0 )\\
+	$CP_5$=$\phi$($CP_4$)=(6, $\top$, 0 )\\
+	$CP_6$=$\phi$($CP_4$)=(6, $\top$, 0 )\\
+	$CP_7$=$\phi$($CP_6$) $\sqcup$ $\phi$($CP_5$)= (6, $\top$, 0 )\\
+	b)\\
+	$mop(l_7)$=$\phi_{[1,2,3,4,5,7]}$$\sqcup$$\phi_{[1,2,3,4,6,7]}$=(6, $\top$, 0 )$\sqcup$(6, $\top$, 0 )= (6, $\top$, 0 )\\
+	c)\\
+	IDEAL($l_7$) is equal to mop($l_7$) in this case, because there exists not case (path) where i or j are reassigned since 6 and 0 are assigned to them. Moreover r will in any case be reeassigned with 3 (r=0<5). Therefore r is not constant.
+	\newpage
+	
+	\section*{Exercise 2}
+	a) 
+	Prove that $(D^n,\sqsubseteq^n)$ is a complete latice:
+	Since $(D,\sqsubseteq)$ is a latice it is also a partial order. Therefore two tuples a,b $\in$ $D^n$ are also partitially ordered by pointwise applying the $\sqsubseteq$. Since we define $\sqsubseteq^n$ as the pointwise computation of $\sqsubseteq$ for a and b $(D^n,\sqsubseteq^n)$ is a partitial order. As we can execute the $\sqcup$ and $\sqcap$ also pointwise for a and b (because $(D,\sqsubseteq)$ is a latice), we can compute in that way also the glb and lup for $(D^n,\sqsubseteq^n)$.\\
+	Therefore $(D^n,\sqsubseteq^n)$ is a partial order with glb and lup\\
+	$\Rightarrow (D^n,\sqsubseteq^n)$ is a complete latice
+	b)\\
+	\begin{sidewaystable}
+		\begin{tabularx}{\textwidth}{|l|X|X|X|X|X|X|X|X|}
+			\hline 
+			& $AI_0$  & $AI_1$ & $AI_2$ & $AI_3$ & $AI_4$ &  $AI_5$ & $AI_6$ & Worklist \\ 
+			\hline 
+			Init & \{(x,?),(i,?),\newline(r,?)\} & $\bot_D$ & $\bot_D$ & $\bot_D$ & $\bot_D$ & $\bot_D$ & $\bot_D$ & (0,1),(1,2),\newline(0,2),(2,3),\newline(3,4),(4,5),\newline(5,6),(6,4)\\ 
+			\hline 
+			1 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & $\bot_D$ & $\bot_D$ & $\bot_D$ & $\bot_D$ & $\bot_D$ & (1,2),(0,2),\newline(2,3),(3,4),\newline(4,5),(5,6),\newline(6,4)\\ 
+			\hline  
+			2 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),\newline(i,?),(r,?)\} & $\bot_D$ & $\bot_D$ & $\bot_D$ & $\bot_D$ &  (0,2),(2,3),\newline(3,4),(4,5),\newline(5,6),(6,4)\\ 
+			\hline 
+			3 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),\newline(x,?),\newline(i,?),(r,?)\} & $\bot_D$ & $\bot_D$ & $\bot_D$ & $\bot_D$ & (2,3),(3,4),\newline(4,5),(5,6),\newline(6,4)\\ 
+			\hline 
+			4 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline\newline(i,2),(r,?)\} & $\bot_D$ & $\bot_D$ & $\bot_D$ & 
+			(3,4),(4,5),\newline(5,6),(6,4)\\ 
+			\hline 
+			5 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,2),\newline(r,?)\} & \{(x,1),(x,?)\newline,\newline(i,2),(r,3)\} & $\bot_D$ & $\bot_D$ & (4,5),(5,6),\newline(6,4)\\ 
+			\hline
+			6 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,?),(r,?)\} & \{(x,1),(x,?),\newline(i,2),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,2),(r,3)\} & \{(x,1),(x,?),\newline(i,2),\newline(r,3)\} & $\bot_D$ & 
+			(5,6),(6,4)\\ 
+			\hline
+			7 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,?),(r,?)\} & \{(x,1),(x,?),\newline(i,2),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,2),(r,3)\} & \{(x,1),(x,?),\newline(i,2),(r,3)\} & \{(x,1),(x,?),\newline(i,2),(r,5),\newline(r,5)\} & (6,4)\\ 
+			\hline
+			8 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,?),(r,?)\} & \{(x,1),(x,?),\newline(i,2),\newline(r,?)\} & \{(x,1),(x,?),\newline(i,6),(r,3)\} & \{(x,1),(x,?),\newline(i,2),(r,3)\} & \{(x,6),(x,?),\newline(i,2),(r,5),\newline(r,5)\} & (4,5),(5,6),\newline(6,4)\\ 
+			\hline
+			9 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline\newline(i,?),(r,?)\} & \{(x,1),(x,?),\newline(i,2),\newline(r,?)\} & \{(x,1),(x,?),\newline\newline(i,6),(r,3)\} & \{(x,1),(x,?)\newline,\newline(i,6),(r,3)\} & \{(x,6),\newline(i,2),(r,5),\newline(r,5)\} & (5,6),(6,4)\\ 
+			\hline
+			10 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline\newline(i,?),(r,?)\} & \{(x,1),(x,?)\newline,\newline(i,2),\newline(r,?)\} & \{(x,1),(x,?),\newline\newline(i,6),(r,3)\} & \{(x,1),(x,?)\newline,\newline(i,6),(r,3)\} & \{(x,6),\newline(i,6),(r,5),\newline(r,5)\} & (6,4)\\ 
+			\hline
+			11 & \{(x,?),(i,?),\newline(r,?)\} & \{(x,?),(i,?),\newline(r,?)\} & \{(x,1),(x,?),\newline\newline(i,?),(r,?)\} & \{(x,1),(x,?)\newline,\newline(i,2),\newline(r,?)\} & \{(x,1),(x,?),\newline\newline(i,6),(r,3)\} & \{(x,1),(x,?)\newline,\newline(i,6),(r,3)\} & \{(x,6),\newline(i,6),(r,5),\newline(r,5)\} & \\ 
+			\hline
+		\end{tabularx}
+	\end{sidewaystable}
+\end{document}
